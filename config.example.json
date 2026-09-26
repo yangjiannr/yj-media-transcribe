@@ -1,0 +1,10 @@
+{
+  "asr_python": "",
+  "asr_engine": "auto",
+  "whisper_model": "medium",
+  "ffmpeg_bin": "D:/300GitHub/ffmpeg/bin",
+  "hf_endpoint": "https://hf-mirror.com",
+  "hf_hub_disable_xet": true,
+  "skip_existing_transcript": true,
+  "long_video_bytes": 83886080
+}
