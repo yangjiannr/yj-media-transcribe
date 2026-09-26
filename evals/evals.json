@@ -1,0 +1,43 @@
+{
+  "skill_name": "yj-media-transcribe",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "F:/downloads/许老师学习方法/videos 里已经有一批 mp4，不要下载，只要把还没转写的按下载完成时间顺序转成 txt+srt。先说明你会怎么做，并问我要不要先拿最短的 1–2 个做 FunASR 预览。",
+      "expected_output": "Uses yj-media-transcribe creator mode: sync/ensure asr_ordered+transcribe_one, offers quality preview on shortest files, then asr_ordered.py --creator-root with mtime order; does not start MediaCrawler or download.",
+      "files": [],
+      "assertions": [
+        "Mentions asr_ordered.py (or equivalent mtime-ordered ASR worker) for bulk transcription",
+        "Offers or confirms a FunASR quality preview on 1–2 short files before full run",
+        "Does not propose MediaCrawler crawl or starting a new download job",
+        "Names creator_root as F:/downloads/许老师学习方法 (or equivalent path)",
+        "Mentions both .txt and .srt outputs under transcripts/"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "帮我把 D:/tmp/meeting.m4a 转成文字，输出放 D:/tmp/out/，要 txt 和带时间轴的 srt。机器上 FunASR 可用。",
+      "expected_output": "paths mode via transcribe_paths.py or transcribe_one.py --media; out-dir D:/tmp/out; engine funasr/auto; no creator crawl/download.",
+      "files": [],
+      "assertions": [
+        "Targets D:/tmp/meeting.m4a as input",
+        "Uses out dir D:/tmp/out (or writes meeting.txt + meeting.srt there)",
+        "Chooses FunASR or engine=funasr/auto (not Whisper-only when FunASR is available)",
+        "Does not require creator_root videos/ layout or crawl/download pipeline",
+        "Mentions producing both .txt and timed .srt"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "小红书博主目录 F:/downloads/某老师 下载还在跑，另开转写并行；不要重新抓主页。",
+      "expected_output": "Points to yj-media-transcribe asr_ordered alongside existing download; does not run xhs crawl; may sync scripts from yj-media-transcribe; mentions asr.lock vs pipeline.lock.",
+      "files": [],
+      "assertions": [
+        "Proposes running asr_ordered.py (or ASR-only worker) against F:/downloads/某老师 in parallel with download",
+        "Explicitly does not re-crawl / re-fetch the Xiaohongshu creator homepage",
+        "Mentions asr.lock (or that ASR uses a separate lock from the downloader)",
+        "Does not start crawl_xhs_creator / MediaCrawler for this task"
+      ]
+    }
+  ]
+}
